@@ -1,0 +1,81 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "test",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/v1/authz/rolebindings": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "summary": "List all role bindings for all resources of all resource types",
+        "operationId": "ListAllRoleBindings",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/authz.v1.RoleBindingsListAllResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "authz.v1.RoleBindingsListAllResponse": {
+      "required": [
+        "result"
+      ],
+      "properties": {
+        "request_id": {
+          "type": "string"
+        },
+        "result": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/authz.v1.RoleBindingsListAllResponse.result"
+          }
+        }
+      }
+    },
+    "authz.v1.RoleBindingsListAllResponse.result": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/authz.v1.RoleBindingConfig"
+        }
+      }
+    },
+    "authz.v1.RoleBindingConfig": {
+      "required": [
+        "id",
+        "description",
+        "subjects",
+        "role_name"
+      ],
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "role_name": {
+          "type": "string"
+        },
+        "subjects": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
